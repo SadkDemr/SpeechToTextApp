@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<!DOCTYPE html>
+<html lang="en-US">
+<body>
+
+<div id="google_translate_element"></div>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<h1>Proje Hakkında</h1>
+<hr>
+<h2>Adım-1 Kütüphanler</h2>
+<p>Projede python web framework içeriği olan Flask kullanılmıştır. Gelen sesi yazıya çevirmek içinde 
+    speech_recognition kütüphesi kullanılmıştır.
+</p>
+<table border="3">
+<tr>
+    <tb><i><b>from flask import Flask, render_template, request, redirect</b></i></tb><br>
+    <tb><i><b>import speech_recognition as sr</b></i></tb>
+</tr>
+</table>
+<hr>
+<h2>Adım-2 Çeviri</h2>
+<p>Bu kısım ise yüklenen ses dosyasının metine dönüştürülüp yazıdırılasıdır.</p>
+<i><b>app = Flask(_name_)<br>
+
+@app.route("/", methods=["GET", "POST"])<br>
+def index():<br>
+    transcript = ""<br>
+    if request.method == "POST":<br>
+        print("FORM DATA RECEIVED")<br>
+
+        if "file" not in request.files:<br>
+            return redirect(request.url)<br>
+
+        file = request.files["file"]<br>
+        if file.filename == "":<br>
+            return redirect(request.url)<br>
+        
+
+        if file:<br>
+            recognizer = sr.Recognizer()<br>
+            audioFile = sr.AudioFile(file)<br>
+            with audioFile as source:
+                data = recognizer.record(source)<br>
+            transcript = recognizer.recognize_google(data, key=None)<br>
+
+    return render_template('index.html', transcript=transcript)</b></i>
+<hr>
+<h2>Adım-3 Son</h2>
+<p>Proje hakkında sayfasının bağlanması ve proje sonu.</p>
+<i><b>@app.route("/about")<br>
+    def about():<br>
+        return render_template("about.html")<br>
+    
+        
+    if _name_ == "_main_":<br>
+        app.run(debug=True, threaded=True)</b></i>
+<hr>
+</body>
+</html>
+{% endblock body %}
